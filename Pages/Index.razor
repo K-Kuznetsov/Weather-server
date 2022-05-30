@@ -7,21 +7,31 @@
 
 <h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
-
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <h2>@WeatherLocation.City, @WeatherLocation.Region, @WeatherLocation.Country</h2>
+    <p>@WeatherLocation.Latitude, @WeatherLocation.Longitude</p>
+    <p>@WeatherLocation.LocalTime</p><br/>
+    <p>@CurrentWeather.CurrTemp</p>
+    <p>@CurrentWeather.FeelsLike</p>
+    <p>@CurrentWeather.CurrWind</p>
+    <p>@CurrentWeather.CurrSummary</p>
+    <img src=@CurrentWeather.CurrICON/>    
+
     <table class="table">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
+                <th>Wind (km/h)</th>
+                <th>Chance of rain (%)</th>
+                <th>Chance of snow (%)</th>
                 <th>Summary</th>
+                <th>Icon</th>
             </tr>
         </thead>
         <tbody>
@@ -30,8 +40,11 @@ else
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.MaxWind</td>
+                    <td>@forecast.Rainchance</td>
+                    <td>@forecast.SnowChance</td>
                     <td>@forecast.Summary</td>
+                    <td><img src=@forecast.ICON/></td>
                 </tr>
             }
         </tbody>
@@ -39,7 +52,7 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private List<WeatherForecast> forecasts;
 
     protected override async Task OnInitializedAsync()
     {
