@@ -14,7 +14,11 @@ namespace Weather.Data
                 {
                     Date = DateTime.Parse(item.date),
                     TemperatureC = Convert.ToInt32(Math.Round(item.day.avgtemp_c, 0)),
-                    Summary = item.day.condition.text
+                    Summary = item.day.condition.text,
+                    ICON = item.day.condition.icon,
+                    MaxWind = Convert.ToInt32(Math.Round(item.day.maxwind_kph, 0)),
+                    RainChance = item.day.daily_chance_of_rain,
+                    SnowChance = item.day.daily_chance_of_snow
                 });
             }
             return output;
